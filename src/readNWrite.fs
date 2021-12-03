@@ -1,4 +1,6 @@
-open System
+module readNWrite
+
+
 //9g0
 ///<summary>readFile function, akes a filename and returns the contents of the text file as a string option</summary>
 /// <param name="fileName">name of the file. string.</param>
