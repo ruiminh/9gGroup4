@@ -1,4 +1,5 @@
 open System
+open System.Text
 
 let url2Stream url =
   let uri = System.Uri url
@@ -15,8 +16,13 @@ let readUrl url =
        | _-> printfn "%s" ex.Message; "Error"
 
 let countLinks  "url:string" : int =
-    match readUrl url with
+    let r = RegularExpressions.Regex "href=.*"
+    let s = readUrl url
+    let mutable count = 0
+    match s with
        | "Error" -> 0
-       |_-> 
+       |_-> for elm i s.Split() do
+                   if r.IsMatch elm then count<-count+1
+	        count
 
 
