@@ -13,16 +13,19 @@ let readUrl url =
        let reader = new System.IO.StreamReader(stream)
        reader.ReadToEnd ()
    with
-       | _-> printfn "%s" ex.Message; "Error"
+       | ex-> printfn "%s" ex.Message; "Error"
 
-let countLinks  "url:string" : int =
+let countLinks  (url:string) : int =
     let r = RegularExpressions.Regex "href=.*"
     let s = readUrl url
-    let mutable count = 0
+    let mutable count:int = 0
     match s with
        | "Error" -> 0
-       |_-> for elm i s.Split() do
-                   if r.IsMatch elm then count<-count+1
-	        count
+       | _-> for elm in (s.Split()) do
+                     if r.IsMatch elm then
+                                  count<-count+1
+             count
+
+countLinks "https://www.dr.dk/"
 
 
